@@ -127,7 +127,7 @@ describe("TESTS: Update Manager => Channels", () => {
 
           for (let i = 0; i < $items.length; i++) {
               const text = $items[i].innerText.trim();
-              if (text.startsWith('JBoss EAP')) {
+              if (text.startsWith('JBoss EAP_')) {
                   matchingItemsCount++;
               }
           }
