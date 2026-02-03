@@ -108,4 +108,31 @@ describe("TESTS: Update Manager => Channels", () => {
     cy.verifySuccess();
     cy.get("#update-manager-channel > ul > #" + channels.gav.name).should("not.exist");
   });
+
+
+  /**
+   * Get channel versions from first revision on updates section
+   *
+   * Make sure that there is at least one channel that starts with "JBoss EAP"
+   */
+  it("Check channel version", () => {
+    cy.navigateToUpdateManagerPage(managementEndpoint, ["update-manager", "channels"]);
+    cy.get('#update-manager-update ul li')
+      .first()
+      .click();
+    cy.contains('li.list-group-item', 'Channel Versions')
+      .find('.value ul li')
+      .should(($items) => {
+          let matchingItemsCount = 0;
+
+          for (let i = 0; i < $items.length; i++) {
+              const text = $items[i].innerText.trim();
+              if (text.startsWith('JBoss EAP')) {
+                  matchingItemsCount++;
+              }
+          }
+
+          expect(matchingItemsCount).to.be.greaterThan(0);
+      });
+    });
 });
